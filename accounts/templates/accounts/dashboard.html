@@ -1,0 +1,56 @@
+{% extends 'accounts/main.html' %}
+
+
+{% block content %}
+{% include 'accounts/status.html' %}
+<br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h5>CUSTOMERS:</h5>
+                <hr>
+                <div class="card card-body">
+                    <a class="btn btn-primary btn-sm btn-block" href="">Create Customer</a>
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Customer</th>
+                            <th>Phones</th>
+                        </tr>
+                        {% for i in customers %}
+                            <tr>
+                                <td><a href="{% url 'customer' i.id %}">{{ i.name }}</a></td>
+                                <td>{{ i.phone }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <h5>LAST 5 ORDERS:</h5>
+                <hr>
+                <div class="card card-body">
+                    
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Products</th>
+                            <th>Date Orders</th>
+                            <th>Status</th>
+                            <th>Update</th>
+                            <th>Remove</th>
+                        </tr>
+                        {% for i in orders %}
+                            <tr>
+                                <td>{{ i.product }}</td>
+                                <td>{{ i.date_created }}</td>
+                                <td>{{ i.status }}</td>
+                                <td><a class="btn btn-info btn-sm" href="{% url 'update_order' i.id %}">Update</a></td>
+                                <td><a class="btn btn-danger btn-sm" href="{% url 'delete_order' i.id %}" onclick="return confirm('Delete Order?')">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>  
+{% endblock %}
